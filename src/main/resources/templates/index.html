@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragmentos/cabecero::cabecero-seccion(titulo='Sistema de Contactos')}"/>
+<head th:replace="~{fragmentos/cabecero::cabecero-seccion(titulo='Sistema de Gestion de Gastos')}"/>
 
 <body>
 
@@ -24,17 +24,19 @@
             <th  scope="col">Monto</th>
             <th scope="col">Tipo de Movimiento</th>
             <th scope="col">Fecha de Movimiento</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Categoria</th>
 
         </tr>
         </thead>
         <tbody>
-        <tr th:each="movimiento: ${movimientos}">
+      <!--  <tr th:each="movimiento: ${movimientos}">
             <th th:text="${movimiento.idMovimiento}" scope="row"></th>
             <td th:text="${movimiento.monto}"></td>
             <td th:text="${movimiento.movimientoTipo}"> </td>
             <td th:text="${movimiento.fechaMovimiento}" > </td>
 
-        </tr>
+        </tr>-->
 
         </tbody>
     </table>
