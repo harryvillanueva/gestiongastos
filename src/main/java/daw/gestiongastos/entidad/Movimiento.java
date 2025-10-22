@@ -9,7 +9,7 @@ import lombok.Data;
 import java.sql.Date;
 
 @Entity
-@Data
+
 public class Movimiento {
 
     @Id
@@ -20,4 +20,82 @@ public class Movimiento {
     Date fechaMovimiento;
     String descripcion;
     String categoria;
+
+
+    public Movimiento(Integer idMovimiento) {
+        this.idMovimiento = idMovimiento;
+    }
+
+    public Movimiento(Integer idMovimiento, double monto, String movimientoTipo, Date fechaMovimiento, String descripcion, String categoria) {
+        this.idMovimiento = idMovimiento;
+        this.monto = monto;
+        this.movimientoTipo = movimientoTipo;
+        this.fechaMovimiento = fechaMovimiento;
+        this.descripcion = descripcion;
+        this.categoria = categoria;
+    }
+
+    public Movimiento() {
+
+    }
+
+    @Override
+    public String toString() {
+        return "Movimiento{" +
+                "idMovimiento=" + idMovimiento +
+                ", monto=" + monto +
+                ", movimientoTipo='" + movimientoTipo + '\'' +
+                ", fechaMovimiento=" + fechaMovimiento +
+                ", descripcion='" + descripcion + '\'' +
+                ", categoria='" + categoria + '\'' +
+                '}';
+    }
+
+    public Integer getIdMovimiento() {
+        return idMovimiento;
+    }
+
+    public void setIdMovimiento(Integer idMovimiento) {
+        this.idMovimiento = idMovimiento;
+    }
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto = monto;
+    }
+
+    public String getMovimientoTipo() {
+        return movimientoTipo;
+    }
+
+    public void setMovimientoTipo(String movimientoTipo) {
+        this.movimientoTipo = movimientoTipo;
+    }
+
+    public Date getFechaMovimiento() {
+        return fechaMovimiento;
+    }
+
+    public void setFechaMovimiento(Date fechaMovimiento) {
+        this.fechaMovimiento = fechaMovimiento;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
 }

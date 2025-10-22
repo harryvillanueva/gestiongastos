@@ -11,7 +11,7 @@
 
 <div class="container">
     <div class="container text-center" style="margin:30px">
-        <h2> Gestion Finanzas</h2>
+        <h2> Sistema de Gestion de Finanzas</h2>
     </div>
 </div>
 
@@ -30,13 +30,15 @@
         </tr>
         </thead>
         <tbody>
-      <!--  <tr th:each="movimiento: ${movimientos}">
+        <tr th:each="movimiento: ${movimientos}">
             <th th:text="${movimiento.idMovimiento}" scope="row"></th>
             <td th:text="${movimiento.monto}"></td>
             <td th:text="${movimiento.movimientoTipo}"> </td>
             <td th:text="${movimiento.fechaMovimiento}" > </td>
+            <td th:text="${movimiento.descripcion}" > </td>
+            <td th:text="${movimiento.categoria}" > </td>
 
-        </tr>-->
+        </tr>
 
         </tbody>
     </table>

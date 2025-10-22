@@ -17,7 +17,7 @@ public class MovimientoControlador {
     private static final Logger logger = LoggerFactory.getLogger(MovimientoControlador.class);
 
     @Autowired
-    MovimientoServicio movimientoServicio;
+    private MovimientoServicio movimientoServicio;
 
     @GetMapping("/")
     public String iniciar(ModelMap modelo){
