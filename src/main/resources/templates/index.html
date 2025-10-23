@@ -24,6 +24,7 @@
             <th scope="col">Fecha de Movimiento</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Categoria</th>
+            <th scope="col"></th>
 
         </tr>
         </thead>
@@ -35,6 +36,11 @@
             <td th:text="${movimiento.fechaMovimiento}" > </td>
             <td th:text="${movimiento.descripcion}" > </td>
             <td th:text="${movimiento.categoria}" > </td>
+            <td class="text-center" >
+                <div class="container">
+                    <a th:href="@{/editar/{id}(id=${movimiento.idMovimiento})}" class="btn btn-warning btn-sm me-3">Editar</a>
+                </div>
+            </td>
 
         </tr>
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -36,6 +37,20 @@ public class MovimientoControlador {
 
     @PostMapping("/agregar")
     public String agregar(@ModelAttribute("movimientoForma") Movimiento movimiento){
+        movimientoServicio.agregarMovimiento(movimiento);
+        return "redirect:/";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String mostrarEditar(@PathVariable(value = "id") int idMovimiento, ModelMap modelo){
+
+        Movimiento movimiento = movimientoServicio.buscarMovimientoPorId(idMovimiento);
+        modelo.put("movimiento",movimiento);
+        return "editar";
+    }
+
+    @PostMapping("/editar")
+    public String editar(@ModelAttribute("movimiento") Movimiento movimiento){
         movimientoServicio.agregarMovimiento(movimiento);
         return "redirect:/";
     }
