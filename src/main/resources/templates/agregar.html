@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragmentos/cabecero::cabecero-seccion(titulo='Sistema de Contactos')}"/>
+<head th:replace="~{fragmentos/cabecero::cabecero-seccion(titulo='agregar Movimiento')}"/>
 <body>
 
 
@@ -8,28 +8,52 @@
 
 <div class="container">
     <div class="container text-center" style="margin:30px">
-        <h2> Sistema de contactos</h2>
+        <h2> Agregar Movimiento</h2>
     </div>
 </div>
 
 <div class="container">
 
 
-    <form>
+    <form action="/agregar" method="post" modelAttribute="movimientoForma">
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            <label for="monto" class="form-label">Monto</label>
+            <input type="text" class="form-control" id="monto" name="monto" required>
         </div>
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <label for="movimientoTipo" class="form-label">Tipo de Movimiento</label>
+            <select  class="form-select" id="movimientoTipo" name="movimientoTipo" >
+                <option value="Ingreso">Ingreso</option>
+                <option value="Gasto" selected>Gasto</option>
+            </select>
+
         </div>
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        <div class="mb-3">
+            <label for="fechaMovimiento" class="form-label">fecha de Movimiento</label>
+            <input type="date" class="form-control" id="fechaMovimiento" name="fechaMovimiento" required >
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripcion</label>
+            <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="categoria" class="form-label">Categoria</label>
+            <select  class="form-select" id="categoria" name="categoria" >
+                <option value="Servicios">Servicios</option>
+                <option value="Alimentos" selected>Alimentos</option>
+                <option value="Salario">Salario</option>
+                <option value="Oseo">Oseo</option>
+                <option value="Otros">Otros</option>
+            </select>
+        </div>
+
+        <div class="container text-center">
+            <button type="submit" class="btn btn-warning btn-sm me-3">Agregar</button>
+            <a href="/" class="btn btn-danger btn-sm">Regresar</a>
+        </div>
+
     </form>
 </div>
 <div th:replace="~{fragmentos/pie-pagina::pie-pagina-seccion}"/>
