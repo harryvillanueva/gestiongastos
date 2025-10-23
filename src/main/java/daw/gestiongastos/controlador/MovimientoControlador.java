@@ -54,4 +54,16 @@ public class MovimientoControlador {
         movimientoServicio.agregarMovimiento(movimiento);
         return "redirect:/";
     }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable(value = "id") int idMovimiento){
+
+        Movimiento movimiento = new Movimiento();
+        movimiento.setIdMovimiento(idMovimiento);
+        movimientoServicio.eliminarMovimiento(movimiento);
+
+        return "redirect:/";
+    }
+
+
 }
