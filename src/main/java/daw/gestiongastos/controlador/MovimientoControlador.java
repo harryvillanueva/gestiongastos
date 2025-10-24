@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -56,11 +57,12 @@ public class MovimientoControlador {
     }
 
     @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable(value = "id") int idMovimiento){
+    public String eliminar(@PathVariable(value = "id") int idMovimiento, RedirectAttributes redirectAttributes){
 
         Movimiento movimiento = new Movimiento();
         movimiento.setIdMovimiento(idMovimiento);
         movimientoServicio.eliminarMovimiento(movimiento);
+        redirectAttributes.addFlashAttribute("msg_exito", "¡Se eliminó correctamente!");
 
         return "redirect:/";
     }
