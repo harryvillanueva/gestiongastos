@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+// ¿Te falta el update?
 @Service
 public class MovimientoServicio implements IMovimientoServicio{
 
@@ -21,6 +22,7 @@ public class MovimientoServicio implements IMovimientoServicio{
     @Override
     public Movimiento buscarMovimientoPorId(Integer idMovimiento) {
 
+        // return movimientoRepositorio.findById(...);
         Movimiento movimiento = movimientoRepositorio.findById(idMovimiento).orElse(null);
 
         return movimiento;
