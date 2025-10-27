@@ -4,7 +4,7 @@ import daw.gestiongastos.entidad.Movimiento;
 
 import java.util.List;
 
-// 💪 Muy buena idea la idea de usar una interfaz
+// 💪 Muy buena idea la de usar una interfaz
 public interface IMovimientoServicio {
 
 
