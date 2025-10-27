@@ -1,3 +1,5 @@
+<!-- No dejes líneas en blanco; si quieres separar bloques, una línea en blanco sería suficiente -->
+<!-- 💪💪💪 Buen uso de los fragmentos de Thymeleaf -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragmentos/cabecero::cabecero-seccion(titulo='agregar Movimiento')}"/>
@@ -14,7 +16,7 @@
 
 <div class="container">
 
-
+    <!-- https://spring.io/guides/gs/handling-form-submission -->
     <form action="/agregar" method="post" modelAttribute="movimientoForma">
         <div class="mb-3">
             <label for="monto" class="form-label">Monto</label>
@@ -39,13 +41,14 @@
             <input type="text" class="form-control" id="descripcion" name="descripcion" required>
         </div>
 
+        <!-- Mejor si te traes la lista de categorías desde la BB. DD. -->
         <div class="mb-3">
             <label for="categoria" class="form-label">Categoria</label>
             <select  class="form-select" id="categoria" name="categoria" >
                 <option value="Servicios">Servicios</option>
                 <option value="Alimentos" selected>Alimentos</option>
                 <option value="Salario">Salario</option>
-                <option value="Oseo">Oseo</option>
+                <option value="Oseo">Oseo</option> <!-- ¿Qué categoría es "Oseo"? -->
                 <option value="Otros">Otros</option>
             </select>
         </div>
