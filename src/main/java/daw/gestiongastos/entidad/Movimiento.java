@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+// ❗ Borra las líneas que no son usadas...como este import o los métodos
+// que no uses
 import lombok.Data;
 
 import java.sql.Date;
