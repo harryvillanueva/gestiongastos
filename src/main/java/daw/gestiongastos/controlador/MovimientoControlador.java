@@ -4,8 +4,6 @@ import daw.gestiongastos.entidad.Categoria;
 import daw.gestiongastos.entidad.Movimiento;
 import daw.gestiongastos.servicio.ICategoriaServicio;
 import daw.gestiongastos.servicio.MovimientoServicio;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,12 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 import java.util.List;
 
 @Controller
 public class MovimientoControlador {
 
-    private static final Logger logger = LoggerFactory.getLogger(MovimientoControlador.class);
+
 
     @Autowired
     private MovimientoServicio movimientoServicio;
@@ -33,23 +32,26 @@ public class MovimientoControlador {
     @GetMapping("/")
     public String iniciar(ModelMap modelo){
         List<Movimiento> movimientos = movimientoServicio.listarMovimientos();
+        Double totalIngresos = movimientoServicio.getTotalIngresos();
+        Double totalGastos = movimientoServicio.getTotalGastos();
+        Double balance = totalIngresos - totalGastos;
         modelo.put("movimientos",movimientos);
+        modelo.put("totalIngresos", totalIngresos);
+        modelo.put("totalGastos", totalGastos);
+        modelo.put("balance", balance);
         return "index";
     }
 
     @GetMapping("/agregar")
     public String mostrarAgregar(ModelMap modelo){
-        // --- CAMBIO AQUÍ ---
-        // Pasamos la lista de categorías al modelo
+
         List<Categoria> categorias = categoriaServicio.listarCategorias();
         modelo.put("categorias", categorias);
-        // --- FIN DEL CAMBIO ---
         return "agregar";
     }
 
     @PostMapping("/agregar")
     public String agregar(@ModelAttribute("movimientoForma") Movimiento movimiento){
-        // Spring se encarga de convertir el idCategoria del form a un objeto Categoria
         movimientoServicio.agregarMovimiento(movimiento);
         return "redirect:/";
     }
@@ -59,13 +61,8 @@ public class MovimientoControlador {
 
         Movimiento movimiento = movimientoServicio.buscarMovimientoPorId(idMovimiento);
         modelo.put("movimiento",movimiento);
-
-        // --- CAMBIO AQUÍ ---
-        // También pasamos la lista de categorías al editar
         List<Categoria> categorias = categoriaServicio.listarCategorias();
         modelo.put("categorias", categorias);
-        // --- FIN DEL CAMBIO ---
-
         return "editar";
     }
 

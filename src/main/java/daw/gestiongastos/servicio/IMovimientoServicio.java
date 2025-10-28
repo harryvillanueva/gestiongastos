@@ -13,5 +13,8 @@ public interface IMovimientoServicio {
     public void agregarMovimiento(Movimiento movimiento);
     public void eliminarMovimiento(Movimiento movimiento);
 
+    public Double getTotalIngresos();
+    public Double getTotalGastos();
+
 
 }
