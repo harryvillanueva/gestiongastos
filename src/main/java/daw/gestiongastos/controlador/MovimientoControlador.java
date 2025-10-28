@@ -1,6 +1,8 @@
 package daw.gestiongastos.controlador;
 
+import daw.gestiongastos.entidad.Categoria;
 import daw.gestiongastos.entidad.Movimiento;
+import daw.gestiongastos.servicio.ICategoriaServicio;
 import daw.gestiongastos.servicio.MovimientoServicio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,11 @@ public class MovimientoControlador {
     @Autowired
     private MovimientoServicio movimientoServicio;
 
+
+    @Autowired
+    private ICategoriaServicio categoriaServicio;
+
+
     @GetMapping("/")
     public String iniciar(ModelMap modelo){
         List<Movimiento> movimientos = movimientoServicio.listarMovimientos();
@@ -32,12 +39,17 @@ public class MovimientoControlador {
 
     @GetMapping("/agregar")
     public String mostrarAgregar(ModelMap modelo){
+        // --- CAMBIO AQUÍ ---
+        // Pasamos la lista de categorías al modelo
+        List<Categoria> categorias = categoriaServicio.listarCategorias();
+        modelo.put("categorias", categorias);
+        // --- FIN DEL CAMBIO ---
         return "agregar";
     }
 
-
     @PostMapping("/agregar")
     public String agregar(@ModelAttribute("movimientoForma") Movimiento movimiento){
+        // Spring se encarga de convertir el idCategoria del form a un objeto Categoria
         movimientoServicio.agregarMovimiento(movimiento);
         return "redirect:/";
     }
@@ -47,6 +59,13 @@ public class MovimientoControlador {
 
         Movimiento movimiento = movimientoServicio.buscarMovimientoPorId(idMovimiento);
         modelo.put("movimiento",movimiento);
+
+        // --- CAMBIO AQUÍ ---
+        // También pasamos la lista de categorías al editar
+        List<Categoria> categorias = categoriaServicio.listarCategorias();
+        modelo.put("categorias", categorias);
+        // --- FIN DEL CAMBIO ---
+
         return "editar";
     }
 
@@ -66,6 +85,4 @@ public class MovimientoControlador {
 
         return "redirect:/";
     }
-
-
 }

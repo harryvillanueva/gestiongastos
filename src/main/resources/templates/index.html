@@ -35,7 +35,7 @@
             <td th:text="${movimiento.movimientoTipo}"> </td>
             <td th:text="${movimiento.fechaMovimiento}" > </td>
             <td th:text="${movimiento.descripcion}" > </td>
-            <td th:text="${movimiento.categoria}" > </td>
+            <td th:text="${movimiento.categoria != null ? movimiento.categoria.nombre : 'Sin Categoría'}" > </td>
             <td class="text-center" >
                 <div class="container">
                     <a th:href="@{/editar/{id}(id=${movimiento.idMovimiento})}" class="btn btn-warning btn-sm me-3">Editar</a>

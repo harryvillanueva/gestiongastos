@@ -1,15 +1,9 @@
 package daw.gestiongastos.entidad;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Data;
-
+import jakarta.persistence.*; // Importante: Asegúrate de importar @ManyToOne, @JoinColumn
 import java.sql.Date;
 
 @Entity
-
 public class Movimiento {
 
     @Id
@@ -19,14 +13,17 @@ public class Movimiento {
     String movimientoTipo;
     Date fechaMovimiento;
     String descripcion;
-    String categoria;
+    @ManyToOne
+    @JoinColumn(name = "id_categoria")
+            Categoria categoria;
 
 
     public Movimiento(Integer idMovimiento) {
         this.idMovimiento = idMovimiento;
     }
 
-    public Movimiento(Integer idMovimiento, double monto, String movimientoTipo, Date fechaMovimiento, String descripcion, String categoria) {
+
+    public Movimiento(Integer idMovimiento, double monto, String movimientoTipo, Date fechaMovimiento, String descripcion, Categoria categoria) {
         this.idMovimiento = idMovimiento;
         this.monto = monto;
         this.movimientoTipo = movimientoTipo;
@@ -36,8 +33,8 @@ public class Movimiento {
     }
 
     public Movimiento() {
-
     }
+
 
     @Override
     public String toString() {
@@ -47,9 +44,10 @@ public class Movimiento {
                 ", movimientoTipo='" + movimientoTipo + '\'' +
                 ", fechaMovimiento=" + fechaMovimiento +
                 ", descripcion='" + descripcion + '\'' +
-                ", categoria='" + categoria + '\'' +
+                ", categoria=" + (categoria != null ? categoria.getNombre() : "null") + // Mostramos el nombre
                 '}';
     }
+
 
     public Integer getIdMovimiento() {
         return idMovimiento;
@@ -91,11 +89,12 @@ public class Movimiento {
         this.descripcion = descripcion;
     }
 
-    public String getCategoria() {
+
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 }
