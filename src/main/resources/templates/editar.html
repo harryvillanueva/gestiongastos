@@ -44,11 +44,11 @@
     <div class="mb-3">
       <label for="categoria" class="form-label">Categoria</label>
       <select  class="form-select" id="categoria" name="categoria" th:field="*{categoria}">
-        <option value="Servicios">Servicios</option>
-        <option value="Alimentos" selected>Alimentos</option>
-        <option value="Salario">Salario</option>
-        <option value="Oseo">Oseo</option>
-        <option value="Otros">Otros</option>
+        <option value="" disabled>-- Seleccione una Categoría --</option>
+        <option th:each="cat : ${categorias}"
+                th:value="${cat.idCategoria}"
+                th:text="${cat.nombre}">
+        </option>
       </select>
     </div>
 
