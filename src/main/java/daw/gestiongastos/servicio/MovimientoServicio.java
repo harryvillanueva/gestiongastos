@@ -39,4 +39,14 @@ public class MovimientoServicio implements IMovimientoServicio{
         movimientoRepositorio.delete(movimiento);
 
     }
+
+    @Override
+    public Double getTotalIngresos() {
+        return movimientoRepositorio.findTotalIngresos();
+    }
+
+    @Override
+    public Double getTotalGastos() {
+        return movimientoRepositorio.findTotalGastos();
+    }
 }
