@@ -1,9 +1,9 @@
 package daw.gestiongastos.controlador;
 
-import daw.gestiongastos.entidad.Categoria;
+
+import daw.gestiongastos.aplicacion.IMovimientoAplicacionServicio;
 import daw.gestiongastos.entidad.Movimiento;
-import daw.gestiongastos.servicio.ICategoriaServicio;
-import daw.gestiongastos.servicio.MovimientoServicio;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,73 +13,55 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-import java.util.List;
-
 @Controller
 public class MovimientoControlador {
 
 
-
     @Autowired
-    private MovimientoServicio movimientoServicio;
+    private IMovimientoAplicacionServicio movimientoAplicacionServicio;
 
-
-    @Autowired
-    private ICategoriaServicio categoriaServicio;
 
 
     @GetMapping("/")
-    public String iniciar(ModelMap modelo){
-        List<Movimiento> movimientos = movimientoServicio.listarMovimientos();
-        Double totalIngresos = movimientoServicio.getTotalIngresos();
-        Double totalGastos = movimientoServicio.getTotalGastos();
-        Double balance = totalIngresos - totalGastos;
-        modelo.put("movimientos",movimientos);
-        modelo.put("totalIngresos", totalIngresos);
-        modelo.put("totalGastos", totalGastos);
-        modelo.put("balance", balance);
+    public String iniciar(ModelMap modelo) {
+
+        movimientoAplicacionServicio.prepararDashboard(modelo);
         return "index";
     }
 
     @GetMapping("/agregar")
-    public String mostrarAgregar(ModelMap modelo){
+    public String mostrarAgregar(ModelMap modelo) {
 
-        List<Categoria> categorias = categoriaServicio.listarCategorias();
-        modelo.put("categorias", categorias);
+        movimientoAplicacionServicio.prepararPaginaAgregar(modelo);
         return "agregar";
     }
 
     @PostMapping("/agregar")
-    public String agregar(@ModelAttribute("movimientoForma") Movimiento movimiento){
-        movimientoServicio.agregarMovimiento(movimiento);
+    public String agregar(@ModelAttribute("movimientoForma") Movimiento movimiento) {
+
+        movimientoAplicacionServicio.guardarMovimiento(movimiento);
         return "redirect:/";
     }
 
     @GetMapping("/editar/{id}")
-    public String mostrarEditar(@PathVariable(value = "id") int idMovimiento, ModelMap modelo){
+    public String mostrarEditar(@PathVariable(value = "id") int idMovimiento, ModelMap modelo) {
 
-        Movimiento movimiento = movimientoServicio.buscarMovimientoPorId(idMovimiento);
-        modelo.put("movimiento",movimiento);
-        List<Categoria> categorias = categoriaServicio.listarCategorias();
-        modelo.put("categorias", categorias);
+        movimientoAplicacionServicio.prepararPaginaEditar(idMovimiento, modelo);
         return "editar";
     }
 
     @PostMapping("/editar")
-    public String editar(@ModelAttribute("movimiento") Movimiento movimiento){
-        movimientoServicio.agregarMovimiento(movimiento);
+    public String editar(@ModelAttribute("movimiento") Movimiento movimiento) {
+
+        movimientoAplicacionServicio.guardarMovimiento(movimiento);
         return "redirect:/";
     }
 
     @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable(value = "id") int idMovimiento, RedirectAttributes redirectAttributes){
+    public String eliminar(@PathVariable(value = "id") int idMovimiento, RedirectAttributes redirectAttributes) {
 
-        Movimiento movimiento = new Movimiento();
-        movimiento.setIdMovimiento(idMovimiento);
-        movimientoServicio.eliminarMovimiento(movimiento);
+        movimientoAplicacionServicio.eliminarMovimiento(idMovimiento);
         redirectAttributes.addFlashAttribute("msg_exito", "¡Se eliminó correctamente!");
-
         return "redirect:/";
     }
 }
