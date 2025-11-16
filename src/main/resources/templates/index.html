@@ -81,6 +81,7 @@
             <th scope="col">Fecha de Movimiento</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Categoria</th>
+            <th scope="col">Comp.</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -96,6 +97,16 @@
             <td th:text="${#dates.format(movimiento.fechaMovimiento, 'dd-MM-yyyy')}" > </td>
             <td th:text="${movimiento.descripcion}" > </td>
             <td th:text="${movimiento.categoria != null ? movimiento.categoria.nombre : 'Sin Categoría'}" > </td>
+
+            <td class="text-center">
+                <a th:if="${movimiento.comprobante != null}"
+                   th:href="@{/comprobantes/{filename}(filename=${movimiento.comprobante})}"
+                   class="btn btn-outline-info btn-sm"
+                   target="_blank"  title="Ver Comprobante">
+                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                </a>
+            </td>
+
             <td class="text-center" >
                 <div class="container">
                     <a th:href="@{/editar/{id}(id=${movimiento.idMovimiento})}" class="btn btn-warning btn-sm me-3"> <i class="bi bi-pencil-square"></i> </a>

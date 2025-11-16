@@ -16,6 +16,7 @@ public class Movimiento {
     @ManyToOne
     @JoinColumn(name = "id_categoria")
             Categoria categoria;
+    private String comprobante;
 
 
     public Movimiento(Integer idMovimiento) {
@@ -96,5 +97,13 @@ public class Movimiento {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public String getComprobante() {
+        return comprobante;
+    }
+
+    public void setComprobante(String comprobante) {
+        this.comprobante = comprobante;
     }
 }
