@@ -15,7 +15,7 @@
 <div class="container">
 
 
-    <form action="/agregar" method="post" modelAttribute="movimientoForma">
+    <form action="/agregar" method="post" modelAttribute="movimientoForma" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="monto" class="form-label">Monto</label>
             <input type="text" class="form-control" id="monto" name="monto" required>
@@ -48,6 +48,11 @@
                         th:text="${cat.nombre}">
                 </option>
             </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="file" class="form-label">Comprobante (Opcional, max 5MB)</label>
+            <input type="file" class="form-control" id="file" name="file">
         </div>
 
         <div class="container text-center">

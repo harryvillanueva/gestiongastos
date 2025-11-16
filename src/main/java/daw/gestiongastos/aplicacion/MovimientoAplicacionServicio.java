@@ -6,10 +6,12 @@ import daw.gestiongastos.servicio.ICategoriaServicio;
 import daw.gestiongastos.servicio.IMovimientoServicio;
 import daw.gestiongastos.servicio.EmailServicio;
 import jakarta.annotation.PostConstruct;
+import daw.gestiongastos.servicio.IStorageServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -25,6 +27,9 @@ public class MovimientoAplicacionServicio implements IMovimientoAplicacionServic
 
     @Autowired
     private EmailServicio emailServicio;
+
+    @Autowired
+    private IStorageServicio storageServicio;
 
 
     private boolean alertaBalanceBajoEnviada = false;
@@ -62,7 +67,40 @@ public class MovimientoAplicacionServicio implements IMovimientoAplicacionServic
 
     @Override
     @Transactional
-    public void guardarMovimiento(Movimiento movimiento) {
+    public void guardarMovimiento(Movimiento movimiento, MultipartFile comprobante) {
+
+        String comprobanteAntiguo = null;
+
+        // --- 1. DETECTAR SI ES UNA EDICIÓN ---
+        if (movimiento.getIdMovimiento() != null) {
+            // Es una edición, buscamos el movimiento original
+            Movimiento movAntiguo = movimientoServicio.buscarMovimientoPorId(movimiento.getIdMovimiento());
+            if (movAntiguo != null) {
+                // Guardamos el nombre del fichero antiguo
+                comprobanteAntiguo = movAntiguo.getComprobante();
+            }
+        }
+
+        // --- 2. PROCESAR EL NUEVO FICHERO (SI EXISTE) ---
+        if (comprobante != null && !comprobante.isEmpty()) {
+            // Un nuevo fichero fue subido.
+            // 2a. Lo guardamos en disco
+            String nuevoComprobante = storageServicio.store(comprobante);
+
+            // 2b. Asignamos el nombre nuevo a la entidad
+            movimiento.setComprobante(nuevoComprobante);
+
+            // 2c. Si había un fichero antiguo, lo borramos
+            if (comprobanteAntiguo != null) {
+                storageServicio.delete(comprobanteAntiguo);
+            }
+        } else {
+            // No se subió un fichero nuevo.
+            // Debemos MANTENER el fichero antiguo en la entidad.
+            movimiento.setComprobante(comprobanteAntiguo);
+        }
+
+
 
         movimientoServicio.agregarMovimiento(movimiento);
 

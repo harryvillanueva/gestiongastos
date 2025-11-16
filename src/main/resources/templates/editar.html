@@ -14,7 +14,7 @@
 
 <div class="container">
 
-  <form action="/editar" method="post" th:object="${movimiento}">
+  <form action="/editar" method="post" th:object="${movimiento}" enctype="multipart/form-data">
 
     <input type="hidden" th:field="*{idMovimiento}"/>
 
@@ -50,6 +50,21 @@
                 th:text="${cat.nombre}">
         </option>
       </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="file" class="form-label">Comprobante (max 5MB)</label>
+
+      <div th:if="*{comprobante != null}" class="mb-2">
+        Comprobante actual:
+        <a th:href="@{/comprobantes/{filename}(filename=*{comprobante})}" target="_blank">
+          <i class="bi bi-file-earmark-arrow-down-fill"></i>
+          <span th:text="*{comprobante}"></span>
+        </a>
+      </div>
+
+      <input type="file" class="form-control" id="file" name="file">
+      <div class="form-text">Si sube un nuevo fichero, reemplazará al actual. Si no sube nada, el actual se conservará.</div>
     </div>
 
 
