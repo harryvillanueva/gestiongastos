@@ -2,7 +2,7 @@ package daw.gestiongastos.repositorio;
 
 import daw.gestiongastos.entidad.Movimiento;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query; // Importar Query
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
