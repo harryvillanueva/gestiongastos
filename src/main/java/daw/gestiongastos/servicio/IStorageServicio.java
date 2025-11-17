@@ -5,9 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface IStorageServicio {
 
-    void init(); // Para crear el directorio
-
-    // Devuelve el nombre único del fichero guardado
+    void init();
     String store(MultipartFile file);
     Resource loadAsResource(String filename);
     void delete(String filename);

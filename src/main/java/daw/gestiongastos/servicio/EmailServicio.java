@@ -12,11 +12,11 @@ public class EmailServicio {
     @Autowired
     private JavaMailSender mailSender;
 
-    // Lee el email "remitente" desde application.properties
+
     @Value("${spring.mail.username}")
     private String remitente;
 
-    // El correo del destinatario
+
     private static final String DESTINATARIO = "harry.villanueva.gallardo@gmail.com";
 
 
