@@ -23,7 +23,7 @@ public class FileStorageServicio implements IStorageServicio {
 
     @Autowired
     public FileStorageServicio(StorageProperties properties) {
-        // Usa la propiedad de configuración inyectada
+
         this.rootLocation = Paths.get(properties.getLocation());
     }
 
@@ -43,7 +43,7 @@ public class FileStorageServicio implements IStorageServicio {
                 throw new RuntimeException("Falló al guardar un fichero vacío.");
             }
 
-            // Generamos un nombre único para evitar colisiones
+
             String originalFilename = file.getOriginalFilename();
             String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
             String uniqueFilename = UUID.randomUUID().toString() + extension;
@@ -52,14 +52,13 @@ public class FileStorageServicio implements IStorageServicio {
                     .normalize().toAbsolutePath();
 
             if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
-                // Security check
+
                 throw new RuntimeException("No se puede guardar el fichero fuera del directorio actual.");
             }
 
             try (InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
 
-                // Devuelve el nombre único con el que se guardó
                 return uniqueFilename;
             }
         } catch (IOException e) {

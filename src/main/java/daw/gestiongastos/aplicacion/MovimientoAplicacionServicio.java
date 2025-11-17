@@ -71,32 +71,28 @@ public class MovimientoAplicacionServicio implements IMovimientoAplicacionServic
 
         String comprobanteAntiguo = null;
 
-        // --- 1. DETECTAR SI ES UNA EDICIÓN ---
+
         if (movimiento.getIdMovimiento() != null) {
-            // Es una edición, buscamos el movimiento original
+
             Movimiento movAntiguo = movimientoServicio.buscarMovimientoPorId(movimiento.getIdMovimiento());
             if (movAntiguo != null) {
-                // Guardamos el nombre del fichero antiguo
+
                 comprobanteAntiguo = movAntiguo.getComprobante();
             }
         }
 
-        // --- 2. PROCESAR EL NUEVO FICHERO (SI EXISTE) ---
+
         if (comprobante != null && !comprobante.isEmpty()) {
-            // Un nuevo fichero fue subido.
-            // 2a. Lo guardamos en disco
+
             String nuevoComprobante = storageServicio.store(comprobante);
 
-            // 2b. Asignamos el nombre nuevo a la entidad
+
             movimiento.setComprobante(nuevoComprobante);
 
-            // 2c. Si había un fichero antiguo, lo borramos
             if (comprobanteAntiguo != null) {
                 storageServicio.delete(comprobanteAntiguo);
             }
         } else {
-            // No se subió un fichero nuevo.
-            // Debemos MANTENER el fichero antiguo en la entidad.
             movimiento.setComprobante(comprobanteAntiguo);
         }
 
