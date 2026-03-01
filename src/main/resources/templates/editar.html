@@ -20,6 +20,8 @@
 
     <div class="mb-3">
       <label for="monto" class="form-label">Monto</label>
+      <!-- Permites la introducción de letras; ergo, tienes que validar si es un número -->
+      <!-- https://coreui.io/blog/how-to-check-if-string-is-number-in-javascript/ -->
       <input type="text" class="form-control" id="monto" name="monto" required th:field="*{monto}">
     </div>
 
